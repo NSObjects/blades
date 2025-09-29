@@ -42,17 +42,18 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
-	log.Println(result.AsText())
+	log.Println(result.Text())
 	// Run the agent in streaming mode
 	stream, err := agent.RunStream(context.Background(), prompt)
 	if err != nil {
 		log.Fatal(err)
 	}
+	defer stream.Close()
 	for stream.Next() {
 		res, err := stream.Current()
 		if err != nil {
 			log.Fatal(err)
 		}
-		log.Print(res.AsText())
+		log.Print(res.Text())
 	}
 }

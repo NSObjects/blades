@@ -78,7 +78,7 @@ func (r *RoutingWorkflow) selectRoute(ctx context.Context, prompt *blades.Prompt
 	if err != nil {
 		return nil, err
 	}
-	choice := strings.TrimSpace(res.AsText())
+	choice := strings.TrimSpace(res.Text())
 	return r.agents[choice], nil
 }
 
@@ -86,11 +86,11 @@ func main() {
 	var (
 		routes = map[string]string{
 			"math_agent":    "You provide help with math problems. Explain your reasoning at each step and include examples.",
-			"histroy_agent": "You provide assistance with historical queries. Explain important events and context clearly.",
+			"history_agent": "You provide assistance with historical queries. Explain important events and context clearly.",
 		}
 	)
 	routing := NewRoutingWorkflow(routes)
-	// Example prompt that will be routed to the histroy_agent
+	// Example prompt that will be routed to the history_agent
 	prompt := blades.NewPrompt(
 		blades.UserMessage("What is the capital of France?"),
 	)
@@ -98,5 +98,5 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
-	log.Println(res.AsText())
+	log.Println(res.Text())
 }
